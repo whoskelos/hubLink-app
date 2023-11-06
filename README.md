@@ -1,8 +1,7 @@
-# React + Vite
+# HubLink 📂
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Control de Inventario 🚧En construcción🚧
 
-Currently, two official plugins are available:
+![Pantalla de un ordenador](https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Desarrollo de una aplicación web diseñada para empresas que buscan un control centralizado y eficiente de los dispositivos asignados a sus usuarios, el seguimiento de licencias y la gestión de incidencias.**
