@@ -12,7 +12,7 @@ function App() {
   return (
     <div className='min-h-screen grid grid-cols-1 lg:grid-cols-6'>
       {/** Sidebar */}
-      <div className={`fixed lg:static w-[80%] md:w-[40%] lg:w-full top-0 z-50 bg-white transition-all ${sidebar ? '-left-0' : '-left-full'} overflow-y-scroll md:overflow-y-hidden -left-full h-full col-span-1 p-8`}>
+      <div className={`fixed lg:static w-[80%] md:w-[40%] lg:w-full top-0 z-50 bg-white transition-all ${sidebar ? '-left-0' : '-left-full'} overflow-y-scroll md:overflow-y-hidden h-full col-span-1 p-8`}>
         {/*LOGOTIPO*/}
         <div className="text-center p-8">
           <h1 className="font-bold tracking-[4px]">
