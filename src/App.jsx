@@ -8,6 +8,7 @@ import Dashboard from "./views/Dashboard";
 import Usuarios from "./views/Usuarios";
 import Dispositivos from "./views/Dispositivos";
 import Licencias from "./views/Licencias";
+import Login from "./views/Login";
 function App() {
     const [sidebar, setSidebar] = useState(false);
 
@@ -33,6 +34,7 @@ function App() {
                 <main className="flex-grow container w-full max-w-[80%] m-auto">
                     <Routes>
                         <Route path="/" element={<Dashboard />} />
+                        <Route path="/login" element={<Login />} />
                         <Route path="/usuarios" element={<Usuarios />} />
                         <Route
                             path="/dispositivos"

@@ -1,11 +1,17 @@
 /* eslint-disable react/prop-types */
-import { RiLogoutBoxRLine } from "react-icons/ri";
+import {
+    RiLoginBoxLine,
+} from "react-icons/ri";
 import { MenuItem } from "./MenuItem";
 import { Link } from "react-router-dom";
 
 export function Sidebar({ sidebar }) {
     return (
-        <div className={`fixed lg:static w-[80%] md:w-[40%] lg:w-full top-0 z-50 bg-white transition-all ${sidebar ? '-left-0' : '-left-full'} overflow-y-scroll md:overflow-y-hidden h-full col-span-1 p-8 flex flex-col justify-center`}>
+        <div
+            className={`fixed lg:static w-[80%] md:w-[40%] lg:w-full top-0 z-50 bg-white transition-all ${
+                sidebar ? "-left-0" : "-left-full"
+            } overflow-y-scroll md:overflow-y-hidden h-full col-span-1 p-8 flex flex-col justify-center`}
+        >
             {/*LOGOTIPO*/}
             <div className="text-center mb-4">
                 <h1 className="text-2xl font-bold tracking-[4px]">
@@ -47,15 +53,20 @@ export function Sidebar({ sidebar }) {
                         <p className="text-gray-500 text-center">
                             Gestiona los activos de tu empresa
                         </p>
-                        <button className="bg-cyan-500 hover:bg-cyan-600 text-white p-2 rounded-lg">Saber mas</button>
+                        <button className="bg-cyan-500 hover:bg-cyan-600 text-white p-2 rounded-lg">
+                            Saber mas
+                        </button>
                     </div>
-                    <a href="#" className="flex items-center gap-4 hover:bg-cyan-600 p-4 text-gray-400 hover:text-white font-semibold rounded-lg transition-colors">
-                        <RiLogoutBoxRLine />
-                        Logout
-                    </a>
+                    <Link
+                        to={"/login"}
+                        className="flex items-center gap-4 hover:bg-cyan-600 p-4 text-gray-400 hover:text-white font-semibold rounded-lg transition-colors"
+                    >
+                        <RiLoginBoxLine />
+                        {/* <RiLogoutBoxRLine /> */}
+                        Login
+                    </Link>
                 </div>
             </div>
         </div>
-
-    )
-} 
+    );
+}
