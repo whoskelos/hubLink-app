@@ -13,9 +13,9 @@ export function MenuItem({ nombre }) {
         content = <RiTicket2Line />
     }
     return (
-        <a href="#" className="flex items-center gap-4 hover:bg-cyan-600 p-4 text-gray-400 hover:text-white font-semibold rounded-lg transition-colors">
+        <div className="flex items-center gap-4 hover:bg-cyan-600 p-4 text-gray-400 hover:text-white font-semibold rounded-lg transition-colors">
             {content}
             {nombre}
-        </a>
+        </div>
     )
 }
