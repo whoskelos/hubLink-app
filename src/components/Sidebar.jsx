@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-import {
-    RiLoginBoxLine,
-} from "react-icons/ri";
+import { RiLoginBoxLine, RiLogoutBoxRLine } from "react-icons/ri";
 import { MenuItem } from "./MenuItem";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export function Sidebar({ sidebar }) {
+    const { isAuthenticated, logout } = useAuth();
+
     return (
         <div
             className={`fixed lg:static w-[80%] md:w-[40%] lg:w-full top-0 z-50 bg-white transition-all ${
@@ -57,14 +58,24 @@ export function Sidebar({ sidebar }) {
                             Saber mas
                         </button>
                     </div>
-                    <Link
-                        to={"/login"}
-                        className="flex items-center gap-4 hover:bg-cyan-600 p-4 text-gray-400 hover:text-white font-semibold rounded-lg transition-colors"
-                    >
-                        <RiLoginBoxLine />
-                        {/* <RiLogoutBoxRLine /> */}
-                        Login
-                    </Link>
+
+                    {isAuthenticated ? (
+                        <button
+                            onClick={(() => logout())}
+                            className="flex items-center gap-4 hover:bg-cyan-600 p-4 text-gray-400 hover:text-white font-semibold rounded-lg transition-colors"
+                        >
+                            <RiLogoutBoxRLine />
+                            Logout
+                        </button>
+                    ) : (
+                        <Link
+                            to={"/login"}
+                            className="flex items-center gap-4 hover:bg-cyan-600 p-4 text-gray-400 hover:text-white font-semibold rounded-lg transition-colors"
+                        >
+                            <RiLoginBoxLine />
+                            Login
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>

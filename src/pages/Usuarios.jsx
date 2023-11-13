@@ -1,7 +1,4 @@
-import { useFetch } from "../services/usuarios";
 export default function Usuarios() {
-    const { users } = useFetch();
-
     return (
         <div>
             <header>
@@ -11,9 +8,9 @@ export default function Usuarios() {
             </header>
             <div className="py-4">
                 <ul>
-                    {users.map((user) => (
+                    {/* {users.map((user) => (
                         <li key={user.usuario_id}>{user.nombre}</li>
-                    ))}
+                    ))} */}
                 </ul>
             </div>
         </div>

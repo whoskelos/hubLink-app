@@ -1,15 +1,14 @@
-import { RiArrowDownSLine } from "react-icons/ri";
+import { useAuth } from "../context/AuthContext";
 
-export function Header () {
+export function Header() {
+    const { user, isAuthenticated } = useAuth();
     return (
         <header className="p-4">
-          <nav className="flex items-center justify-center md:justify-end font-medium">
-            <ul>
-              <li>
-                <a href="#" className="flex items-center gap-1">Kelvin Guerrero <RiArrowDownSLine /> </a>
-              </li>
-            </ul>
-          </nav>
+            <nav className="flex items-center justify-center md:justify-end font-medium">
+                <ul>
+                    <li>{isAuthenticated ? user.user : ""}</li>
+                </ul>
+            </nav>
         </header>
-    )
+    );
 }
