@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 import { UserProvider } from "./context/UserContext";
+import LogoutButton from "./components/LogoutButton";
 function App() {
     return (
         <AuthProvider>
@@ -43,6 +44,7 @@ function App() {
                             </Routes>
                         </main>
                     </div>
+                    <LogoutButton />
                 </div>
             </UserProvider>
         </AuthProvider>
