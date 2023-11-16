@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    overflow-y: scroll;
+}
+
+/**Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(#0891b2, #156275);
+}
+::-webkit-scrollbar-thumb {
+    background: #0891b2;
+    border-radius: 10px;
+}
