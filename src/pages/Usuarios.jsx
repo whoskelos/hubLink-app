@@ -4,6 +4,7 @@ import { useUsers } from "../context/UserContext";
 import Searcher from "../components/Searcher";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal";
 
 export default function Usuarios() {
     const { isAuthenticated } = useAuth();
@@ -57,8 +58,9 @@ export default function Usuarios() {
                         Overview
                     </h1>
                 </div>
-                <div className="self-stretch md:self-end">
+                <div className="flex items-center self-stretch md:self-end">
                     <Searcher />
+                    <Modal />
                 </div>
             </header>
             <div className="flex flex-col gap-2 py-4">{listUsers}</div>
