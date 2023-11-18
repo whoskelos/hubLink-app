@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { loginRequest } from "../api/auth";
 import { Toaster } from "sonner";
+import { setToken } from "../api/users";
 
 export const AuthContext = createContext();
 
@@ -15,16 +16,28 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        const localUserData = JSON.parse(
+            window.localStorage.getItem("userData")
+        );
+        if (localUserData) {
+            setUser(localUserData);
+            setIsAuthenticated(true);
+            setToken(localUserData.token)
+        }
+    }, []);
 
     const signin = async (user) => {
         try {
             const res = await loginRequest(user);
             setUser(res.data);
             setIsAuthenticated(true);
-            window.localStorage.setItem("loggedUser", JSON.stringify(res.data));
+            window.localStorage.setItem("userData", JSON.stringify(res.data));
+            setToken(res.data.token)
         } catch (error) {
             setErrors(error.response.data.message);
             setUser(null);
@@ -41,22 +54,11 @@ export const AuthProvider = ({ children }) => {
         }
     }, [errors]);
 
-    useEffect(() => {
-        const data = JSON.parse(window.localStorage.getItem("loggedUser"));
-        if (!data) {
-            setIsAuthenticated(false);
-            setUser(null);
-            return;
-        }
-        setIsAuthenticated(true);
-        setUser(data);
-    }, []);
-
     const logout = () => {
-        window.localStorage.removeItem("loggedUser");
-        setIsAuthenticated(false)
-        setUser(null)
-
+        window.localStorage.removeItem("userData");
+        setIsAuthenticated(false);
+        setUser(null);
+        setToken('')
     };
 
     return (

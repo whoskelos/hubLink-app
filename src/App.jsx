@@ -14,11 +14,6 @@ function App() {
         <AuthProvider>
             <UserProvider>
                 <div>
-                    {/** Sidebar */}
-                    {/* <Sidebar sidebar={sidebar} /> */}
-                    {/** Menu buton */}
-
-                    {/** Main */}
                     <div className="flex flex-col">
                         {/** Header */}
                         <Header />
