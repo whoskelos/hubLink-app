@@ -10,12 +10,12 @@ export default function LogoutButton() {
                     <h4 className="text-white font-medium">
                         Bienvenido ⚛️ － <span>{user.user}</span>
                     </h4>
-                    <h5 className="flex items-center gap-x-2 text-red-500 font-bold">
-                        Desconectar
-                        <button onClick={logout}>
+                    <button onClick={logout}>
+                        <h5 className="flex items-center gap-x-2 text-red-500 font-bold">
+                            Desconectar
                             <RiLogoutBoxLine className="text-xl text-red-500" />
-                        </button>
-                    </h5>
+                        </h5>
+                    </button>
                 </div>
             )}
         </>
