@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { loginRequest } from "../api/auth";
 import { setToken } from "../api/users";
-
+import {toast} from "sonner"
 export const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -38,6 +38,7 @@ export const AuthProvider = ({ children }) => {
             window.localStorage.setItem("userData", JSON.stringify(res.data));
             setToken(res.data.token)
         } catch (error) {
+            toast.error(error.response.data.message)
             setErrors(error.response.data.message);
             setUser(null);
             setIsAuthenticated(false);

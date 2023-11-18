@@ -9,6 +9,7 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 import { UserProvider } from "./context/UserContext";
 import LogoutButton from "./components/LogoutButton";
+import {Toaster} from "sonner"
 function App() {
     return (
         <AuthProvider>
@@ -40,6 +41,7 @@ function App() {
                         </main>
                     </div>
                     <LogoutButton />
+                    <Toaster richColors />
                 </div>
             </UserProvider>
         </AuthProvider>
