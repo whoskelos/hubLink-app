@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect } from "react";
 import { loginRequest } from "../api/auth";
-import { Toaster } from "sonner";
 import { setToken } from "../api/users";
 
 export const AuthContext = createContext();
@@ -72,7 +71,6 @@ export const AuthProvider = ({ children }) => {
             }}
         >
             {children}
-            <Toaster />
         </AuthContext.Provider>
     );
 };
