@@ -2,6 +2,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from "react";
 import { createUserRequest, getUsersRequest } from "../api/users";
+import { toast } from 'sonner'
 export const UserContext = createContext();
 
 export const useUsers = () => {
@@ -30,7 +31,11 @@ export const UserProvider = ({ children }) => {
         try {
             const res = await createUserRequest(user);
             console.log(res);
+            if (res.status === 200) {
+                toast.success("Usuario creado correctamente")
+            }
         } catch (error) {
+            toast.error(error.response.data.message);
             setErrors(error);
         }
     };
