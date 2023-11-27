@@ -1,20 +1,25 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:3000/api/usuarios";
-let token;
 
-export const setToken = (newToken) => {
-    token = newToken;
-};
-
-export const getUsersRequest = () =>
-    axios.get(API_URL, {
-        headers: {
-            "x-access-token": token,
-        },
-    });
-export const getUserRequest = (id) => axios.get(`${API_URL}/${id}`);
-export const createUserRequest = (user) => axios.post(API_URL, user);
-export const updateUserRequest = (user, id) =>
-    axios.patch(`${API_URL}/${id}`, user);
-export const deleteUsersRequest = (id) => axios.delete(`${API_URL}/${id}`);
+// Crear una instancia de Axios con opciones por defecto
+const axiosInstance = axios.create({
+    baseURL: API_URL,
+    headers: {
+      common: {
+        "x-access-token": null, // Este valor se sobrescribirá antes de cada solicitud
+      },
+    },
+  });
+  
+  // Función para establecer el token en la instancia de Axios
+  export const setToken = (newToken) => {
+    axiosInstance.defaults.headers.common["x-access-token"] = newToken;
+  };
+  
+  // Definir diferentes funciones para las solicitudes
+  export const getUsersRequest = () => axiosInstance.get("/");
+  export const getUserRequest = (id) => axiosInstance.get(`/${id}`);
+  export const createUserRequest = (user) => axiosInstance.post("/", user);
+  export const updateUserRequest = (user, id) => axiosInstance.patch(`/${id}`, user);
+  export const deleteUserRequest = (id) => axiosInstance.delete(`/${id}`);

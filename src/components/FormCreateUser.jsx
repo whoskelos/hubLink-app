@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-//import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useUsers } from "../context/UserContext";
 
@@ -7,23 +7,28 @@ export default function FormCreateUser({ handleClick }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
+    reset
   } = useForm();
   const { createUser } = useUsers();
 
-  // const [user, setUser] = useState({
-  //     nombre: "",
-  //     apellidos: "",
-  //     email: "",
-  //     passwd: "",
-  //     fecha_nacimiento: "",
-  //     puesto: "",
-  //     file: "",
-  // });
-
-  const onSubmit = async (values) => {
-    await createUser(values);
+  const onSubmit = async (data) => {
+    const formData = new FormData()
+    formData.append("nombre", data.nombre)
+    formData.append("apellidos", data.apellidos)
+    formData.append("email", data.email)
+    formData.append("passwd", data.passwd)
+    formData.append("fecha_nacimiento", data.fecha_nacimiento)
+    formData.append("puesto", data.puesto)
+    formData.append("rol", data.rol)
+    formData.append("foto_usuario", data.foto_usuario[0])
+    await createUser(formData);
   };
+
+  // TODO: Activar funcion cuando todo este okay
+  // if (isSubmitSuccessful) {
+  //   reset()
+  // }
 
   return (
     <>
@@ -44,13 +49,24 @@ export default function FormCreateUser({ handleClick }) {
               name="nombre"
               type="text"
               {...register("nombre", {
-                required: true,
-                maxLength: 20,
+                required: {
+                  value: true,
+                  message: "Nombre es requerido"
+                },
+                minLength: {
+                  value: 3,
+                  message: "Nombre debe tener al menos 3 caracteres"
+                },
+                maxLength: {
+                  value: 20,
+                  message: "Nombre supera los 20 caracteres"
+                }
               })}
               className={`w-[100%] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.nombre ? "border border-red-600" : ""
                 }`}
               placeholder="Kelvin"
             />
+            {errors.nombre && <span className="text-red-400">{errors.nombre.message}</span>}
           </div>
           <div className="flex flex-col">
             <label className="font-medium" htmlFor="apellidos">
@@ -61,13 +77,24 @@ export default function FormCreateUser({ handleClick }) {
               name="apellidos"
               type="text"
               {...register("apellidos", {
-                required: true,
-                maxLength: 20,
+                required: {
+                  value: true,
+                  message: "Los apellidos son requeridos"
+                },
+                minLength: {
+                  value: 4,
+                  message: "Los apellidos deben ser al menos 4 caracteres"
+                },
+                maxLength: {
+                  value: 30,
+                  message: "Los apellidos superan los 30 caracteres"
+                },
               })}
               className={`w-[100%] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.apellidos ? "border border-red-600" : ""
                 }`}
               placeholder="Guerrero Mite"
             />
+            {errors.apellidos && <span className="text-red-400">{errors.apellidos.message}</span>}
           </div>
           <div className="flex flex-col">
             <label className="font-medium" htmlFor="email">
@@ -77,11 +104,20 @@ export default function FormCreateUser({ handleClick }) {
               id="email"
               name="email"
               type="email"
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: {
+                  value: true
+                },
+                pattern: {
+                  value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                  message: "Correo no válido"
+                }
+              })}
               className={`w-[100%] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.email ? "border border-red-600" : ""
                 }`}
               placeholder="email@gmail.com"
             />
+            {errors.email && <span className="text-red-400">{errors.email.message}</span>}
           </div>
           <div className="flex flex-col">
             <label className="font-medium" htmlFor="passwd">
@@ -92,14 +128,29 @@ export default function FormCreateUser({ handleClick }) {
               name="passwd"
               type="password"
               {...register("passwd", {
-                required: true,
-                maxLength: 20,
-                minLength: 8,
+                required: {
+                  value: true,
+                  message: "Password es requerido"
+                },
+                minLength: {
+                  value: 8,
+                  message: "mínimo 8 caracteres"
+                },
+                maxLength: {
+                  value: 14,
+                  message: "Supera el máximo de 14 caracteres"
+                },
+                pattern: {
+                  value: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,14}$/,
+                  message: "La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúsculas, no puede tener otros símbolos",
+                }
               })}
               className={`w-[100%] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.passwd ? "border border-red-600" : ""
                 }`}
-              placeholder="#$@cd4%4r"
+              placeholder="w3Unpocodet0d0"
             />
+            {errors.passwd && <span className="text-red-400">{errors.passwd.message}</span>}
+
           </div>
           <div className="flex flex-col">
             <label
@@ -111,11 +162,11 @@ export default function FormCreateUser({ handleClick }) {
             <input
               id="fecha_nacimiento"
               name="fecha_nacimiento"
-              type="text"
+              type="date"
               {...register("fecha_nacimiento", {
                 required: true,
               })}
-              className={`w-[100%] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.fecha_nacimiento
+              className={`w-[213px] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.fecha_nacimiento
                 ? "border border-red-600"
                 : ""
                 }`}
@@ -133,39 +184,36 @@ export default function FormCreateUser({ handleClick }) {
               {...register("puesto", {
                 required: true,
               })}
-              className={`w-[100%] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.email ? "border border-red-600" : ""
+              className={`w-[100%] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.puesto ? "border border-red-600" : ""
                 }`}
               placeholder="Programador"
             />
           </div>
-          <div className="flex-grow flex flex-col">
+          <div className="flex-grow">
             <label className="font-medium" htmlFor="puesto">
               Rol
             </label>
-            <select name="rol" id="rol" {...register("rol")} className={`w-[100%] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.email ? "border border-red-600" : ""
+            <select name="rol" id="rol" {...register("rol", { required: true })} className={`w-[100%] bg-white text-gray-800 px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.rol ? "border border-red-600" : ""
               }`}>
               <option value="user">User</option>
               <option value="moderador">Moderador</option>
               <option value="Admin">Admin</option>
             </select>
           </div>
-          {/* <div className="flex flex-col">
-            <label className="font-medium" htmlFor="foto_usuario">
-              Foto
-            </label>
-            <input
-              id="foto_usuario"
-              name="foto_usuario"
-              type="file"
-              {...register("file", {
-                required: false,
-              })}
-              className={`w-[100%] bg-white px-4 py-2 rounded-md my-2 focus:outline-none active:outline-none ${errors.file
-                ? "border border-red-600"
-                : ""
-                }`}
+          <div className="flex flex-col flex-grow">
+            <label htmlFor="" className="font-medium">Foto Usuario</label>
+            <input type="file" className="my-2" name="foto_usuario" accept="image/png, image/jpeg" {...register("foto_usuario", {
+              validate: {
+                lessThan1_5MB: (files) => files[0]?.size < 1572864 || "La imagen debe ser inferior a 1.5MB",
+                acceptedFormats: (files) =>
+                  ["image/jpeg", "image/png"].includes(
+                    files[0]?.type
+                  ) || "Solo PNG, JPEG"
+              }
+            })}
             />
-          </div> */}
+            {errors.foto_usuario && <span className="text-red-400 font-medium">{errors.foto_usuario.message}</span>}
+          </div>
           <div className="w-full flex gap-x-2 justify-center">
             <button
               type="submit"
@@ -174,7 +222,6 @@ export default function FormCreateUser({ handleClick }) {
               Registrar
             </button>
             <button
-              type="button"
               onClick={() => handleClick()}
               className="bg-red-600 hover:bg-red-700 text-white font-medium p-2 rounded-md"
             >

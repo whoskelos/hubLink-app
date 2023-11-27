@@ -29,7 +29,7 @@ export default function Modal() {
             {
               isOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center w-full transition-all">
-                  <div className="bg-slate-200 p-5 rounded-md transition-all">
+                  <div className="bg-slate-200 p-6 rounded-md transition-all">
                     <FormCreateUser handleClick={closeForm} />
                   </div>
                 </div>

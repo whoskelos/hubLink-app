@@ -30,11 +30,11 @@ export const UserProvider = ({ children }) => {
     const createUser = async (user) => {
         try {
             const res = await createUserRequest(user);
-            console.log(res);
-            if (res.status === 200) {
+            if (res.status === 201) {
                 toast.success("Usuario creado correctamente")
             }
         } catch (error) {
+            console.log(error);
             toast.error(error.response.data.message);
             setErrors(error);
         }
