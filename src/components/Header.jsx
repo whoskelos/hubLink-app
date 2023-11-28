@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export function Header() {
@@ -7,28 +7,28 @@ export function Header() {
         "block text-center active:text-gray-900 focus:text-gray-900 focus:font-bold py-5 focus:border-b-2 focus:border-cyan-600 hover:text-cyan-600 transition-colors";
     return (
         <nav className="bg-white flex justify-center h-[66px] border-b border-gray-300">
-            <ul className="flex gap-x-4  [&>li]:text-gray-400 [&>li]:font-semibold">
+            <ul className="flex gap-x-4 [&>li]:text-gray-400 [&>li]:font-semibold">
                 {isAuthenticated && (
                     <>
                         <li className="w-30">
-                            <Link to={"/"} className={classLinks}>
+                            <NavLink to={"/"} className={({ isActive }) => isActive ? 'block text-center font-bold py-5 border-b-2 border-cyan-600 text-cyan-600 transition-all' : "block py-5 hover:text-cyan-600 transition-colors"}>
                                 Dashboard
-                            </Link>
+                            </NavLink>
                         </li>
                         <li className="">
-                            <Link to={"/usuarios"} className={classLinks}>
+                            <NavLink to={"/usuarios"} className={({ isActive }) => isActive ? 'block text-center font-bold py-5 border-b-2 border-cyan-600 text-cyan-600 transition-all' : "block py-5 hover:text-cyan-600 transition-colors"}>
                                 Usuarios
-                            </Link>
+                            </NavLink>
                         </li>
                         <li className="">
-                            <Link to={"/dispositivos"} className={classLinks}>
+                            <NavLink to={"/dispositivos"} className={({ isActive }) => isActive ? 'block text-center font-bold py-5 border-b-2 border-cyan-600 text-cyan-600 transition-all' : "block py-5 hover:text-cyan-600 transition-colors"}>
                                 Dispositivos
-                            </Link>
+                            </NavLink>
                         </li>
                         <li className="">
-                            <Link to={"/licencias"} className={classLinks}>
+                            <NavLink to={"/licencias"} className={({ isActive }) => isActive ? 'block text-center font-bold py-5 border-b-2 border-cyan-600 text-cyan-600 transition-all' : "block py-5 hover:text-cyan-600 transition-colors"}>
                                 Licencias
-                            </Link>
+                            </NavLink>
                         </li>
                     </>
                 )}
