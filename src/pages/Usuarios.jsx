@@ -27,18 +27,18 @@ export default function Usuarios() {
     const listUsers = users.map((user) => (
         <div
             key={user.usuario_id}
-            className="bg-white flex justify-between items-center px-8 py-2 rounded-lg"
+            className="bg-white flex justify-start md:justify-between items-center px-8 py-2 rounded-lg"
         >
-            <div className="bg-cyan-600 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold">
+            <div className="bg-cyan-600 w-8 h-8 rounded-full hidden md:flex items-center justify-center text-white font-bold">
                 <div>
                     {user.nombre.substring(0, 1)}
                     {user.apellidos.substring(0, 1)}
                 </div>
             </div>
-            <div className="w-15 md:w-64">{user.nombre}</div>
-            <div>{user.puesto}</div>
+            <div>{user.nombre} <b>{user.apellidos}</b></div>
+            <div className="hidden md:block">{user.puesto}</div>
 
-            <div className="hidden md:block">
+            <div className="hidden md:block text-center">
                 {new Date(user.fecha_nacimiento).toLocaleString(
                     "es-ES",
                     options
@@ -58,7 +58,7 @@ export default function Usuarios() {
                         Overview
                     </h1>
                 </div>
-                <div className="flex items-center self-stretch md:self-end">
+                <div className="flex items-center self-stretch md:self-end gap-x-2 md:gap-x-0">
                     <Searcher />
                     <Modal />
                 </div>

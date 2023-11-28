@@ -202,7 +202,9 @@ export default function FormCreateUser({ handleClick }) {
           </div>
           <div className="flex flex-col flex-grow">
             <label htmlFor="" className="font-medium">Foto Usuario</label>
+            {/* TODO: HAY QUE PERMITIR QUE SE ENVIE EL FORMULARIO TENGA IMAGEN O NO SELECCIONADA */}
             <input type="file" className="my-2" name="foto_usuario" accept="image/png, image/jpeg" {...register("foto_usuario", {
+              required: false,
               validate: {
                 lessThan1_5MB: (files) => files[0]?.size < 1572864 || "La imagen debe ser inferior a 1.5MB",
                 acceptedFormats: (files) =>
