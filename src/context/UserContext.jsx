@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
 import { createUserRequest, getUsersRequest } from "../api/users";
 import { toast } from 'sonner'
+import { useAuth } from "./AuthContext";
 export const UserContext = createContext();
 
 export const useUsers = () => {
@@ -17,10 +19,11 @@ export const useUsers = () => {
 export const UserProvider = ({ children }) => {
     const [users, setUsers] = useState([]);
     const [errors, setErrors] = useState([]);
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
-        getUsers()
-    },[])
+        isAuthenticated && getUsers()
+    }, [isAuthenticated])
 
     const getUsers = async () => {
         try {

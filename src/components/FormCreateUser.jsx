@@ -39,6 +39,7 @@ export default function FormCreateUser({ handleClick }) {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-row flex-wrap justify-around gap-4 pt-4"
         >
+          {/* TODO: poner los errores en un popover */}
           <div className="flex flex-col">
             <label className="font-medium" htmlFor="nombre">
               Nombre

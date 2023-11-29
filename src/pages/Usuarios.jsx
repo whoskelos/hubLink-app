@@ -37,9 +37,13 @@ export default function Usuarios() {
     }
 
     const listUsers = filteredUsers.map((user) => (
+        // <div
+        //     key={user.usuario_id}
+        //     className="bg-white flex justify-start md:justify-between items-center px-8 py-2 rounded-lg"
+        // >
         <div
             key={user.usuario_id}
-            className="bg-white flex justify-start md:justify-between items-center px-8 py-2 rounded-lg"
+            className="bg-white grid grid-cols-8 px-8 py-2 rounded-lg"
         >
             <div className="bg-cyan-600 w-8 h-8 rounded-full hidden md:flex items-center justify-center text-white font-bold">
                 <div>
@@ -47,10 +51,10 @@ export default function Usuarios() {
                     {user.apellidos.substring(0, 1)}
                 </div>
             </div>
-            <div>{user.nombre} <b>{user.apellidos}</b></div>
-            <div className="hidden md:block">{user.puesto}</div>
+            <div className="col-span-3">{user.nombre} <b>{user.apellidos}</b></div>
+            <div className="col-span-2 hidden md:block">{user.puesto}</div>
 
-            <div className="hidden md:block text-center">
+            <div className="col-span-2 hidden md:block text-center">
                 {new Date(user.fecha_nacimiento).toLocaleString(
                     "es-ES",
                     options
