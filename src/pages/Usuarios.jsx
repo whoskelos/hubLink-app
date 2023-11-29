@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useUsers } from "../context/UserContext";
 import Searcher from "../components/Searcher";
 import Modal from "../components/Modal";
+import { Link } from "react-router-dom";
 
 export default function Usuarios() {
     const { users } = useUsers()
@@ -41,26 +42,25 @@ export default function Usuarios() {
         //     key={user.usuario_id}
         //     className="bg-white flex justify-start md:justify-between items-center px-8 py-2 rounded-lg"
         // >
-        <div
-            key={user.usuario_id}
-            className="bg-white grid grid-cols-8 px-8 py-2 rounded-lg"
-        >
-            <div className="bg-cyan-600 w-8 h-8 rounded-full hidden md:flex items-center justify-center text-white font-bold">
-                <div>
-                    {user.nombre.substring(0, 1)}
-                    {user.apellidos.substring(0, 1)}
+        <Link key={user.usuario_id} to={`/usuarios/${user.usuario_id}`} className="focus:outline focus:outline-2 focus:outline-cyan-500 focus:scale-105 focus:shadow-2xl focus:rounded-lg">  
+            <div className="bg-white grid grid-cols-8 px-8 py-2 rounded-lg hover:scale-105 hover:shadow-2xl hover:outline hover:outline-2 hover:outline-cyan-500 transition-all ">
+                <div className="bg-cyan-600 w-8 h-8 rounded-full hidden md:flex items-center justify-center text-white font-bold">
+                    <div>
+                        {user.nombre.substring(0, 1)}
+                        {user.apellidos.substring(0, 1)}
+                    </div>
+                </div>
+                <div className="col-span-3">{user.nombre} <b>{user.apellidos}</b></div>
+                <div className="col-span-2 hidden md:block">{user.puesto}</div>
+
+                <div className="col-span-2 hidden md:block text-center">
+                    {new Date(user.fecha_nacimiento).toLocaleString(
+                        "es-ES",
+                        options
+                    )}
                 </div>
             </div>
-            <div className="col-span-3">{user.nombre} <b>{user.apellidos}</b></div>
-            <div className="col-span-2 hidden md:block">{user.puesto}</div>
-
-            <div className="col-span-2 hidden md:block text-center">
-                {new Date(user.fecha_nacimiento).toLocaleString(
-                    "es-ES",
-                    options
-                )}
-            </div>
-        </div>
+        </Link>
     ));
 
     return (

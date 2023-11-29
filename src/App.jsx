@@ -9,7 +9,8 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 import { UserProvider } from "./context/UserContext";
 import LogoutButton from "./components/LogoutButton";
-import {Toaster} from "sonner"
+import { Toaster } from "sonner"
+import UserDetail from "./pages/UserDetail";
 function App() {
     return (
         <AuthProvider>
@@ -27,6 +28,10 @@ function App() {
                                     <Route
                                         path="/usuarios"
                                         element={<Usuarios />}
+                                    />
+                                    <Route
+                                        path="/usuarios/:id"
+                                        element={<UserDetail />}
                                     />
                                     <Route
                                         path="/dispositivos"
