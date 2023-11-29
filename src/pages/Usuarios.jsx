@@ -5,24 +5,24 @@ import Searcher from "../components/Searcher";
 import Modal from "../components/Modal";
 
 export default function Usuarios() {
-    const { getUsers, users } = useUsers()
+    const { users } = useUsers()
     const [search, setSearch] = useState('')
     const [filteredUsers, setFilteredUsers] = useState([])
 
 
     useEffect(() => {
         setFilteredUsers(users);
-      }, [users]); // Este efecto se ejecuta solo cuando 'users' cambia
-    
-      useEffect(() => {
+    }, [users]); // Este efecto se ejecuta solo cuando 'users' cambia
+
+    useEffect(() => {
         // Filtrar usuarios en base a la búsqueda
         const filteredUsers = users.filter(usuario =>
-          usuario.nombre.toLowerCase().includes(search.toLowerCase())
+            usuario.nombre.toLowerCase().includes(search.toLowerCase())
         );
-    
+
         // Actualizar la lista de usuarios filtrados
         setFilteredUsers(filteredUsers);
-      }, [search, users]);
+    }, [search, users]);
 
     var options = {
         year: "numeric",

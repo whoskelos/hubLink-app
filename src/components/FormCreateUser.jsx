@@ -25,10 +25,9 @@ export default function FormCreateUser({ handleClick }) {
     await createUser(formData);
   };
 
-  // TODO: Activar funcion cuando todo este okay
-  // if (isSubmitSuccessful) {
-  //   reset()
-  // }
+  if (isSubmitSuccessful) {
+    reset()
+  }
 
   return (
     <>
