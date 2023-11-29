@@ -5,34 +5,35 @@ import Searcher from "../components/Searcher";
 import Modal from "../components/Modal";
 
 export default function Usuarios() {
+    const { getUsers, users } = useUsers()
     const [search, setSearch] = useState('')
     const [filteredUsers, setFilteredUsers] = useState([])
 
-    const { getUsers, users } = useUsers();
+
+    useEffect(() => {
+        setFilteredUsers(users);
+      }, [users]); // Este efecto se ejecuta solo cuando 'users' cambia
+    
+      useEffect(() => {
+        // Filtrar usuarios en base a la búsqueda
+        const filteredUsers = users.filter(usuario =>
+          usuario.nombre.toLowerCase().includes(search.toLowerCase())
+        );
+    
+        // Actualizar la lista de usuarios filtrados
+        setFilteredUsers(filteredUsers);
+      }, [search, users]);
 
     var options = {
         year: "numeric",
         month: "short",
         day: "numeric",
     };
-    useEffect(() => {
-        getUsers();
-        setFilteredUsers(users)
-    }, []);
+
 
     const handleSearch = (event) => {
         const { value } = event.target
         setSearch(value)
-        //Si el campo value esta vacio mostramos toda la lista
-        if (value === '') {
-            setFilteredUsers(users)
-        } else {
-            //filtramos en base a la busqueda
-            const filteredUsers = users.filter(usuario =>
-                usuario.nombre.toLowerCase().includes(value.toLowerCase()))
-            //actualizamos la lista de los usuarios filtrados
-            setFilteredUsers(filteredUsers)
-        }
     }
 
     const listUsers = filteredUsers.map((user) => (
@@ -63,7 +64,7 @@ export default function Usuarios() {
             <header className="flex flex-col md:flex-row w-full md:justify-between item-start md:items-center">
                 <div>
                     <span className="text-lg text-gray-800 tracking-wide text-center lg:text-start">
-                        Usuarios ({users.length})
+                        Usuarios ({filteredUsers.length})
                     </span>
                     <h1 className="text-5xl text-gray-700 tracking-tight font-bold">
                         Overview

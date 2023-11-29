@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { createUserRequest, getUsersRequest } from "../api/users";
 import { toast } from 'sonner'
 export const UserContext = createContext();
@@ -17,6 +17,10 @@ export const useUsers = () => {
 export const UserProvider = ({ children }) => {
     const [users, setUsers] = useState([]);
     const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        getUsers()
+    },[])
 
     const getUsers = async () => {
         try {
