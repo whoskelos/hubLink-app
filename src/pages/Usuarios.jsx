@@ -1,30 +1,41 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUsers } from "../context/UserContext";
 import Searcher from "../components/Searcher";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
 
 export default function Usuarios() {
-    const { isAuthenticated } = useAuth();
-    const navigate = useNavigate();
-    
-    useEffect(() => {
-        if (!isAuthenticated) navigate("/login")
-    },[])
+    const [search, setSearch] = useState('')
+    const [filteredUsers, setFilteredUsers] = useState([])
+
     const { getUsers, users } = useUsers();
+
     var options = {
-        weekday: "short",
         year: "numeric",
-        month: "long",
+        month: "short",
         day: "numeric",
     };
     useEffect(() => {
         getUsers();
+        setFilteredUsers(users)
     }, []);
 
-    const listUsers = users.map((user) => (
+    const handleSearch = (event) => {
+        const { value } = event.target
+        setSearch(value)
+        //Si el campo value esta vacio mostramos toda la lista
+        if (value === '') {
+            setFilteredUsers(users)
+        } else {
+            //filtramos en base a la busqueda
+            const filteredUsers = users.filter(usuario =>
+                usuario.nombre.toLowerCase().includes(value.toLowerCase()))
+            //actualizamos la lista de los usuarios filtrados
+            setFilteredUsers(filteredUsers)
+        }
+    }
+
+    const listUsers = filteredUsers.map((user) => (
         <div
             key={user.usuario_id}
             className="bg-white flex justify-start md:justify-between items-center px-8 py-2 rounded-lg"
@@ -59,7 +70,7 @@ export default function Usuarios() {
                     </h1>
                 </div>
                 <div className="flex items-center self-stretch md:self-end gap-x-2 md:gap-x-0">
-                    <Searcher />
+                    <Searcher search={search} handleSearch={handleSearch} />
                     <Modal />
                 </div>
             </header>
